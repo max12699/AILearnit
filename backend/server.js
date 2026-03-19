@@ -59,18 +59,15 @@ app.use((req, res) => {
 // Error Middleware
 app.use(errorHandler);
 
-// Local development only
-if (process.env.NODE_ENV !== "production") {
-    const PORT = process.env.PORT || 8000;
-    app.listen(PORT, () => {
-        console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-    });
-}
-
 process.on("unhandledRejection", err => {
     console.error(`Unhandled Error: ${err.message}`);
     process.exit(1);
 });
 
-// Vercel ke liye export
-export default app 
+// Render + Local dono ke liye
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+export default app;
