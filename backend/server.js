@@ -14,7 +14,6 @@ import flashcardRoutes from './routes/flashcardRoutes.js'
 import aiRoutes from './routes/aiRoutes.js'
 import quizRoutes from './routes/quizRoutes.js'
 import progressRoutes from './routes/progressRoutes.js'
-//import notificationRoutes from './routes/notifiationRoutes.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +21,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Connect DB
-await connectDB();
+connectDB().catch(err => console.error("DB Error:", err));
 
 // CORS
 app.use(
@@ -40,16 +39,13 @@ app.use(express.urlencoded({ extended: true }));
 // Static uploads
 app.use("/uploads", express.static("uploads"));
 
-// Routes (Add your API routes here)
+// Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/documents', documentRoutes)
 app.use('/api/flashcards', flashcardRoutes)
 app.use('/api/ai', aiRoutes)
 app.use('/api/quizzes', quizRoutes)
 app.use('/api/progress', progressRoutes)
-//app.use("/api/notifications", notificationRoutes)
-
-
 
 // 404 handler
 app.use((req, res) => {
@@ -60,15 +56,21 @@ app.use((req, res) => {
     });
 });
 
-// Error Middleware (must be last)
+// Error Middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+// Local development only
+if (process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT, () => {
+        console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    });
+}
 
 process.on("unhandledRejection", err => {
     console.error(`Unhandled Error: ${err.message}`);
     process.exit(1);
 });
+
+// Vercel ke liye export
+export default app;
