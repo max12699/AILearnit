@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { BrainCircuit, Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
@@ -69,7 +70,7 @@ export default function RegisterPage() {
     "absolute left-11 top-3 text-slate-400 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-400 bg-slate-950 px-1";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-slate-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-black via-slate-900 to-slate-800 px-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -93,10 +94,10 @@ export default function RegisterPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder=" "
+              placeholder="Username"
               className={inputClass}
             />
-            <label className={labelClass}>Username</label>
+         
           </div>
 
           {/* Email */}
@@ -106,10 +107,10 @@ export default function RegisterPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder=" "
+              placeholder="Email "
               className={inputClass}
             />
-            <label className={labelClass}>Email Address</label>
+            
           </div>
 
           {/* Password */}
@@ -119,7 +120,7 @@ export default function RegisterPage() {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder=" "
+              placeholder="Password"
               className={inputClass}
             />
             <button
@@ -129,7 +130,7 @@ export default function RegisterPage() {
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
-            <label className={labelClass}>Password</label>
+            
           </div>
 
           {/* Confirm Password */}
@@ -139,7 +140,7 @@ export default function RegisterPage() {
               type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder=" "
+              placeholder="Confirm Password"
               className={inputClass}
             />
             <button
@@ -149,7 +150,6 @@ export default function RegisterPage() {
             >
               {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
-            <label className={labelClass}>Confirm Password</label>
           </div>
 
           {/* Error */}
